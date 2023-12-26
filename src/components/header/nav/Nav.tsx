@@ -3,6 +3,10 @@ import {motion} from 'framer-motion'
 import {menuSlide} from '../anim.js'
 import Curve from './curve/Curve';
 
+interface NavProps {
+	setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 const navItems = [
 	{
 		title: 'Home',
@@ -22,14 +26,14 @@ const navItems = [
 	},
 ];
 
-const Nav = () => {
+const Nav = ({setIsActive}: NavProps) => {
 	return (
 		<motion.div
 			variants={menuSlide}
 			initial='initial'
 			animate='enter'
 			exit='exit'
-			className='fixed right-0 top-0 h-[100vh] bg-[#292929] text-white'
+			className='fixed right-0 top-0 h-[100vh] bg-[#292929] text-white z-20'
 		>
 			<div className='h-[100%] px-[50px] py-[25pxx] md:p-[100px] flex flex-col justify-between'>
 				<div className='flex flex-col gap-[12px] text-[40px] md:text-[50px] '>
@@ -38,7 +42,7 @@ const Nav = () => {
 					</div>
 
 					{navItems.map((item, index) => {
-						return <NavLink key={index} data={{ ...item, index }} />;
+						return <NavLink key={index} data={{ ...item, index }} setIsActive={setIsActive} />;
 					})}
 				</div>
 				<div className='flex flex-col gap-[12px]'>
@@ -54,6 +58,7 @@ const Nav = () => {
 				</div>
 			</div>
 			<Curve />
+      
 		</motion.div>
 	);
 };
